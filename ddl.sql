@@ -1,41 +1,7 @@
--- PROGRESSION - 1
-
-
--- 1. **Create table city**
-
--- 2. **Create table referee**
-
--- 3. **Create table innings**
-
--- 4. **Create table extra_type**
-
--- 5. **Create table skill**
-
--- 6. **Create table team**
-
--- 7. **Create table player**
-
--- 8. **Create table venue**
-
--- 9. **Create table event**
--- 10. **Create table extra_event**
-
--- 11. **Create table outcome**
-
--- 12. **Create table game**
-
--- 13. **Drop table city**
-
--- 14. **Drop table innings**
-
--- 15. **Drop table skill**
-
--- 16. **Drop table extra_type**
-
-
 create table city(id number(11),name varchar(50) not null, constraint pk_city primary key(id));
 
 create table referee(id number(11),name varchar(50) not null, constraint pk_referee primary key(id));
+
 
 create table innings(id number(11),innings_number number(11) not null, constraint pk_innings primary key(id));
 
@@ -54,6 +20,7 @@ skill_id number(11) not null,team_id number(11) not null,
 constraint pk_player primary key(id),constraint fk_skill_id foreign key(skill_id) references skill(id),
 constraint fk_team_id foreign key(team_id) references team(id));
 
+
 -- references city
 create table venue(id number(11),stadium_name varchar(50) not null,
 city_id number(11) not null, constraint pk_venue primary key(id),
@@ -66,6 +33,7 @@ clock_in_seconds number(11) not null,team_one_score number(11) not null,
 team_two_score number(11) not null,constraint pk_event primary key(id),
 constraint fk_innings_id foreign key(innings_id) references innings(id),
 constraint fk_raider_id foreign key(raider_id) references player(id));
+
 
 --references event,extra_type,team
 create table extra_event(id number(11), event_id number(11) not null, extra_type_id number(11) not null,
@@ -80,6 +48,7 @@ score number(11),player_of_match number(11), constraint pk_outcome primary key(i
 constraint fk_winner_team_id foreign key(winner_team_id) references team(id),
 constraint fk_player_of_match foreign key(player_of_match) references player(id));
 
+
 -- references team,venue,outcome,referee,innings
 create table game(id number(11), game_date DATE not null,team_id_1 number(11) not null,
 team_id_2 number(11) not null,venue_id number(11) not null,outcome_id number(11) not null,
@@ -93,6 +62,7 @@ constraint fk_referee_id_1 foreign key(referee_id_1) references referee(id),
 constraint fk_referee_id_2 foreign key(referee_id_2) references referee(id),
 constraint fk_first_innings_id foreign key(first_innings_id) references innings(id),
 constraint fk_second_innings_id foreign key(second_innings_id) references innings(id));
+
 
 --Drop table city (drop fkeys of city from team and venue)
 alter table team drop constraint fk_home_city;
